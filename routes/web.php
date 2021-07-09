@@ -13,9 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => 'App\Http\Middleware\Admin'], function() {
+Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
+{
     Route::get('/', 'App\Http\Controllers\IndexController@index')->name('index');
+
+    Route::get('/data-update', 'App\Http\Controllers\IndexController@dataUpdate')->name('data-update');
+
+    Route::get('/logout', function()
+    {
+      Session::forget('user');
+
+      if(!Session::has('user'))
+       {
+          return redirect()->route('login');
+       }
+    })->name('logout');
+
 });
 
 Route::get('/login', 'App\Http\Controllers\LoginController@index')->name('login');
-Route::post('/session-start', 'App\Http\Controllers\LoginController@sessionStart')->name('session-start');
+
+Route::post('/session-start', 'App\Http\Controllers\LoginController@login')->name('session-start');

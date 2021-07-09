@@ -8,6 +8,7 @@ use App\Models\User;
 
 class LoginController extends Controller
 {
+
     public function index() {
 
         if (Session::get('user')) {
@@ -17,10 +18,11 @@ class LoginController extends Controller
         return view('login');
     }
 
-    public function sessionStart(Request $request) {
+    public function login(Request $request) {
+
         $user = User::query()
             ->where('email', @$request->email)
-            ->where('password', @$request->password)
+            ->where('password', md5(@$request->password))
             ->first();
 
         if (!isset($user->id)) {
@@ -30,4 +32,5 @@ class LoginController extends Controller
         session(['user' => $user->id]);
         return redirect()->route('index');
     }
+
 }
