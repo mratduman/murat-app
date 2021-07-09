@@ -1,6 +1,12 @@
 @extends('layouts.master')
 
 @section('content')
+    <p>
+      <b>
+        İlk girişinizde veriler 0 gözüküyor olabilir.
+        Üst menüden verileri güncelleyerek provider verilerinin çekilmesini sağlayabilirsiz.
+      </b>
+    </p>
 
     @foreach ($calculation as $key => $devs)
 
